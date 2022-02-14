@@ -148,9 +148,18 @@ export default {
         console.log(err);
       });
 
-      // 儲存資料並照熱門度分類
+      // 儲存資料並
       this.allProducts = response.data.products;
+
+      // 排除訂閱的類型（重要）
+      this.allProducts = this.allProducts.filter((item) => {
+        return item.category !== 'Subscription';
+      });
+
+      // 照熱門度分類
       this.allProducts = this.sortData(this.allProducts, 'content');
+
+      // 設置分頁
       this.setPagination();
     },
     setPagination(page = 1) {
