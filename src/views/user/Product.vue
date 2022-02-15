@@ -529,7 +529,7 @@ export default {
         console.log(err);
       });
 
-      // 儲存回傳資料
+      // 回傳長度資料
       return response.data.data.carts.length;
     }
   },

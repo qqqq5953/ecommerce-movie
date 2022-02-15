@@ -101,14 +101,31 @@
                   <strong class="fw-bold">20% DISCOUNT</strong>
                 </li>
               </ul>
-              <button type="button" class="w-100 btn btn-primary mt-auto mb-2">
-                SUBSCRIBE NOW
+              <button
+                type="button"
+                class="w-100 btn btn-primary mt-auto mb-2"
+                :disabled="status.loadingProductID === subscriptionID"
+                @click="addProductToCart(subscriptionID)"
+                v-if="!isSubscriptionInCart"
+              >
+                <span
+                  class="spinner-border spinner-grow-sm"
+                  v-if="status.loadingProductID === subscriptionID"
+                ></span>
+
+                <span>SUBSCRIBE NOW</span>
               </button>
+              <router-link
+                :to="{ name: 'Cart' }"
+                class="w-100 btn btn-warning mt-auto mb-2 text-primary border border-warning border-2"
+                v-else
+              >
+                <span>Added to cart !</span>
+              </router-link>
             </div>
           </div>
         </div>
       </div>
-
       <h2 class="display-6 text-center mb-4">Compare plans</h2>
 
       <div class="table-responsive">
@@ -194,3 +211,84 @@
     </main>
   </div>
 </template>
+
+<script>
+import emitter from '@/methods/emitter';
+
+export default {
+  data() {
+    return {
+      status: {
+        loadingProductID: ''
+      },
+      isSubscriptionInCart: false
+    };
+  },
+  computed: {
+    subscriptionID() {
+      return process.env.VUE_APP_SUBSCRIPTION_ID;
+    }
+  },
+  methods: {
+    async addProductToCart(id) {
+      // spinner on
+      this.status.loadingProductID = id;
+
+      // api
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+
+      const requestBody = {
+        data: { product_id: id, qty: 1 }
+      };
+
+      const response = await this.$http.post(api, requestBody).catch((err) => {
+        console.log(err);
+      });
+      console.log('addProductToCart', response.data);
+
+      // 更新購物車產品數量
+      const cartLength = await this.getCartProductNumber();
+      emitter.emit('calculate-product-number', cartLength);
+
+      await this.hasSubscription();
+
+      // spinner off
+      this.status.loadingProductID = '';
+    },
+    cartAPIResponse() {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      return this.$http.get(api);
+    },
+    async getCartProductNumber() {
+      // axios
+      const response = await this.cartAPIResponse().catch((err) => {
+        console.log(err);
+      });
+
+      console.log('getCartProductNumber', response.data);
+
+      // 回傳購物車資料
+      return response.data.data.carts.length;
+    },
+    async hasSubscription() {
+      // axios
+      const response = await this.cartAPIResponse().catch((err) => {
+        console.log(err);
+      });
+
+      // 查看購物車品項的 product_id 是否為 subscription_id
+      const hasSubscription = [];
+      response.data.data.carts.forEach((item) => {
+        hasSubscription.push(
+          item.product_id.includes(process.env.VUE_APP_SUBSCRIPTION_ID)
+        );
+      });
+
+      this.isSubscriptionInCart = hasSubscription.includes(true);
+    }
+  },
+  created() {
+    this.hasSubscription();
+  }
+};
+</script>
