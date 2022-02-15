@@ -173,7 +173,7 @@
                     <router-link
                       v-else
                       :to="{ name: 'Cart' }"
-                      class="w-100 btn btn-warning mt-auto mb-2 border border-warning border-2 rounded-3"
+                      class="w-100 btn btn-warning mt-auto border border-warning border-2 rounded-3"
                     >
                       <i class="bi bi-cart-check me-2"></i>
                       <span class="text-light">SUBSCRIBED !</span>
@@ -599,7 +599,7 @@ export default {
   background: rgba(255, 255, 255, 0.05);
   background: rgba(52, 58, 64, 0.3);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(13.5px);
   -webkit-backdrop-filter: blur(13.5px);
 }

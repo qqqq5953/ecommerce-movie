@@ -1,43 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
 
-  <header class="position-relative">
-    <div
-      class="header"
-      style="
-        background: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=800&q=80');
-      "
-    ></div>
-    <div class="position-absolute top-0 bottom-0 w-100">
-      <div
-        class="d-flex align-items-center m-auto h-100"
-        style="background: rgba(255, 255, 255, 0.2)"
-      >
-        <div class="" style="width: 43%">
-          <div class="mb-0 ms-4 p-4" style="background: rgba(0, 0, 0, 0.45)">
-            <h2 class="display-4 text-white">
-              <span class="d-block">Offer</span>
-              <span>a variety of</span>
-              <span class="text-warning"> latest movies </span>
-              around the globe
-            </h2>
-            <hr class="my-0 text-white" />
-            <div class="mt-3">
-              <router-link
-                :to="{ name: 'AllProducts' }"
-                class="btn btn-warning fs-5 w-100"
-              >
-                <span>Pick a movie now</span>
-                <i class="bi bi-arrow-right ms-2"></i>
-              </router-link>
-              <!-- <a href="#" type="button" class="btn btn-warning fs-5 w-100"> </a> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <!-- <header class="position-relative">
     <div
       class="header position-relative top-0 bottom-0 w-100"
@@ -62,52 +25,163 @@
   ></header> -->
 
   <div class="bg-primary">
-    <div class="container py-5">
-      <!-- Playing Now -->
-      <h2 class="h1 d-inline-block">
-        <a
-          href="#"
-          @click.prevent="moreResultsOfCMDB('nowplaying')"
-          class="text-white text-decoration-none d-flex align-items-center"
+    <header class="position-relative">
+      <div
+        class="header"
+        style="
+          background: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=800&q=80');
+        "
+      ></div>
+      <div class="position-absolute top-0 bottom-0 w-100">
+        <div
+          class="d-flex align-items-center m-auto h-100"
+          style="background: rgba(255, 255, 255, 0.2)"
         >
-          <i class="bi bi-camera-reels text-warning me-3 fs-4"></i>
-          <i class="bi bi-camera-reels-fill d-none text-warning me-3 fs-4"></i>
-          <span>Now Playing</span>
-          <i class="bi bi-chevron-right ms-2 fs-4"></i>
-        </a>
-      </h2>
-      <div class="position-relative mt-3 mb-5">
-        <section class="overflow-auto card-scrollbar position-relative">
-          <CardVertical
-            :results="nowPlaying"
-            :language="language"
-          ></CardVertical>
-        </section>
-        <div class="position-absolute right-blur"></div>
+          <div class="" style="width: 43%">
+            <div class="mb-0 ms-4 p-4" style="background: rgba(0, 0, 0, 0.45)">
+              <h2 class="display-4 text-white">
+                <span class="d-block">Offer</span>
+                <span>worldwide</span>
+                <span class="text-warning"> latest movies </span>
+                fitting your lifestyle
+              </h2>
+              <hr class="my-0 text-white" />
+              <div class="mt-3">
+                <router-link
+                  :to="{ name: 'AllProducts' }"
+                  class="btn btn-warning fs-5 w-100"
+                >
+                  <span>Pick a movie now</span>
+                  <i class="bi bi-arrow-right ms-2"></i>
+                </router-link>
+                <!-- <a href="#" type="button" class="btn btn-warning fs-5 w-100"> </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </header>
+    <main class="container py-5">
+      <!-- why CMDB -->
+      <section class="">
+        <h2 class="h1 text-white text-center mb-4">Why CMDB</h2>
+        <ul class="row list-unstyled mb-0">
+          <li class="col">
+            <div class="rounded-3 p-4 h-100 why-section-background">
+              <h3 class="text-white text-center">Flexibility</h3>
+              <div class="d-flex justify-content-center my-3">
+                <i class="bi bi-calendar-plus display-1 text-warning"></i>
+              </div>
+              <p class="text-white mb-4">
+                <span>We offer 2 flexible plans:</span>
+                <span class="d-block">
+                  <span class="fw-bold text-warning">SUBSCRIPTION:</span>
+                  unequaled entertainment experience</span
+                >
+                <span class="d-block">
+                  <span class="fw-bold text-warning">RENTAL:</span>
+                  prompt entertainment with high qualities.</span
+                >
+              </p>
+              <p class="text-white">
+                You can also subscribe for week
+                <span class="fw-bold text-warning">only 1 month</span> or rent
+                for
+                <span class="fw-bold text-warning">only 1 week</span>
+                if you like.
+              </p>
+            </div>
+          </li>
+          <li class="col">
+            <div class="rounded-3 p-4 h-100 why-section-background">
+              <h3 class="text-white text-center">Diversity</h3>
+              <div class="d-flex justify-content-center my-3">
+                <i class="bi bi-globe display-1 text-warning"></i>
+              </div>
+              <p class="text-white">
+                We collect the latest movies from
+                <span class="fw-bold text-warning"
+                  >Asia, Europe, United States of America and Canada</span
+                >
+                , ensuring to keep on track of the trends.
+              </p>
+            </div>
+          </li>
+          <li class="col">
+            <div class="rounded-3 p-4 h-100 why-section-background">
+              <h3 class="text-white text-center">Quality</h3>
+              <div class="d-flex justify-content-center gap-3 my-3">
+                <i class="bi bi-badge-4k display-1 text-warning"></i>
+                <i class="bi bi-badge-hd display-1 text-warning"></i>
+              </div>
+              <p class="text-white">
+                We provide
+                <span class="fw-bold text-warning">either 4K or HD</span>
+                movies depending on the plan chosen, differentiating from the
+                market where only premium members are qualified for the high
+                quality entertainment.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Playing Now -->
+      <section class="pt-5">
+        <h2 class="h1 d-inline-block">
+          <a
+            href="#"
+            @click.prevent="moreResultsOfCMDB('nowplaying')"
+            class="text-white text-decoration-none d-flex align-items-center"
+          >
+            <i class="bi bi-camera-reels text-warning me-3 fs-4"></i>
+            <i
+              class="bi bi-camera-reels-fill d-none text-warning me-3 fs-4"
+            ></i>
+            <span>Now Playing</span>
+            <i class="bi bi-chevron-right ms-2 fs-4"></i>
+          </a>
+        </h2>
+        <div class="position-relative mt-3">
+          <section class="overflow-auto card-scrollbar position-relative">
+            <CardVertical
+              :results="nowPlaying"
+              :language="language"
+            ></CardVertical>
+          </section>
+          <div class="position-absolute right-blur"></div>
+        </div>
+      </section>
 
       <!-- UpComing -->
-      <h2 class="h1 d-inline-block">
-        <a
-          href="#"
-          @click.prevent="moreResultsOfCMDB('upcoming')"
-          class="text-white text-decoration-none d-flex align-items-center"
-        >
-          <i class="bi bi-camera-reels text-warning me-3 fs-4"></i>
-          <i class="bi bi-camera-reels-fill d-none text-warning me-3 fs-4"></i>
-          <span>UpComing</span>
-          <i class="bi bi-chevron-right ms-2 fs-4"></i>
-        </a>
-      </h2>
-      <div class="position-relative mt-3 mb-5">
-        <section
-          class="overflow-auto mt-3 mb-5 card-scrollbar position-relative"
-        >
-          <CardVertical :results="upComing" :language="language"></CardVertical>
-        </section>
-        <div class="position-absolute right-blur"></div>
-      </div>
-    </div>
+      <section class="pt-5">
+        <h2 class="h1 d-inline-block">
+          <a
+            href="#"
+            @click.prevent="moreResultsOfCMDB('upcoming')"
+            class="text-white text-decoration-none d-flex align-items-center"
+          >
+            <i class="bi bi-camera-reels text-warning me-3 fs-4"></i>
+            <i
+              class="bi bi-camera-reels-fill d-none text-warning me-3 fs-4"
+            ></i>
+            <span>UpComing</span>
+            <i class="bi bi-chevron-right ms-2 fs-4"></i>
+          </a>
+        </h2>
+        <div class="position-relative mt-3">
+          <section
+            class="overflow-auto mt-3 mb-5 card-scrollbar position-relative"
+          >
+            <CardVertical
+              :results="upComing"
+              :language="language"
+            ></CardVertical>
+          </section>
+          <div class="position-absolute right-blur"></div>
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -189,6 +263,14 @@ export default {
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+
+.why-section-background {
+  background: rgba(52, 58, 64, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
 }
 
 h2:hover {
