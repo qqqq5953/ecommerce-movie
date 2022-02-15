@@ -115,13 +115,15 @@
 
                 <span>SUBSCRIBE NOW</span>
               </button>
-              <router-link
-                :to="{ name: 'Cart' }"
-                class="w-100 btn btn-warning mt-auto mb-2 text-primary border border-warning border-2"
-                v-else
-              >
-                <span>Added to cart !</span>
-              </router-link>
+              <div v-else class="mt-auto">
+                <div class="text-muted">SUBSCRIBED !</div>
+                <router-link
+                  :to="{ name: 'Cart' }"
+                  class="w-100 btn btn-warning mt-2 mb-2 border border-warning border-2"
+                >
+                  <span class="text-light">Go to my cart</span>
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -250,6 +252,7 @@ export default {
       const cartLength = await this.getCartProductNumber();
       emitter.emit('calculate-product-number', cartLength);
 
+      // 檢查是否已訂閱
       await this.hasSubscription();
 
       // spinner off

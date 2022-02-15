@@ -127,7 +127,13 @@
                   >
                     <button
                       type="button"
-                      class="btn btn-outline-secondary text-center text-muted rounded-3 w-100"
+                      class="btn text-center rounded-3 w-100"
+                      :class="{
+                        'btn-outline-secondary text-muted ':
+                          !status.isSubscriptionInCart,
+                        'btn-outline-light text-light ':
+                          status.isSubscriptionInCart
+                      }"
                       :disabled="status.loadingProductID === productID"
                       @click="addProductToCart(idPassIn)"
                     >
@@ -151,6 +157,7 @@
                       class="btn btn-warning text-center border border-warning text-primary rounded-3 w-100"
                       :disabled="status.loadingProductID === subscriptionID"
                       @click="addProductToCart(subscriptionID)"
+                      v-if="!status.isSubscriptionInCart"
                     >
                       <span
                         class="spinner-border spinner-grow-sm"
@@ -162,6 +169,15 @@
                       ></i>
                       SUBSCRIBE $9.99
                     </button>
+
+                    <router-link
+                      v-else
+                      :to="{ name: 'Cart' }"
+                      class="w-100 btn btn-warning mt-auto mb-2 border border-warning border-2 rounded-3"
+                    >
+                      <i class="bi bi-cart-check me-2"></i>
+                      <span class="text-light">SUBSCRIBED !</span>
+                    </router-link>
                   </div>
                 </div>
               </section>
@@ -320,7 +336,8 @@ export default {
       status: {
         loadingProductID: '',
         watchlistProductID: '',
-        isProductInList: ''
+        isProductInList: '',
+        isSubscriptionInCart: false
       }
     };
   },
@@ -458,6 +475,9 @@ export default {
       const cartLength = await this.getCartProductNumber();
       this.emitter.emit('calculate-product-number', cartLength);
 
+      // 檢查是否已訂閱
+      if (id === this.subscriptionID) await this.hasSubscription();
+
       // spinner off
       this.status.loadingProductID = '';
     },
@@ -522,15 +542,36 @@ export default {
       // spinner off
       this.status.watchlistProductID = '';
     },
+    cartAPIResponse() {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      return this.$http.get(api);
+    },
     async getCartProductNumber() {
       // axios
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      const response = await this.$http.get(api).catch((err) => {
+      const response = await this.cartAPIResponse().catch((err) => {
         console.log(err);
       });
 
-      // 回傳長度資料
+      console.log('getCartProductNumber', response.data);
+
+      // 回傳購物車資料
       return response.data.data.carts.length;
+    },
+    async hasSubscription() {
+      // axios
+      const response = await this.cartAPIResponse().catch((err) => {
+        console.log(err);
+      });
+
+      // 查看購物車品項的 product_id 是否為 subscription_id
+      const hasSubscription = [];
+      response.data.data.carts.forEach((item) => {
+        hasSubscription.push(
+          item.product_id.includes(process.env.VUE_APP_SUBSCRIPTION_ID)
+        );
+      });
+
+      this.status.isSubscriptionInCart = hasSubscription.includes(true);
     }
   },
   async created() {
@@ -539,6 +580,8 @@ export default {
     this.idPassIn = this.productID;
     await this.getProductDetails();
     this.checkProductStatus();
+
+    this.hasSubscription();
 
     // console.log('sub id', process.env.VUE_APP_SUBSCRIPTION_ID);
   }
