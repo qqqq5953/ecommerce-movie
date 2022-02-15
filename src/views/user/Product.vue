@@ -304,7 +304,6 @@ export default {
       genres: [],
       overview: '',
       id: '',
-      subscriptionID: '-Mvs2RtAyjE8MVyiaJte',
       genre: '',
       isNowOrUpcoming: '',
       price: '',
@@ -328,6 +327,9 @@ export default {
   computed: {
     queriesChange() {
       return this.$route.params.productID;
+    },
+    subscriptionID() {
+      return process.env.VUE_APP_SUBSCRIPTION_ID;
     }
   },
   watch: {
@@ -537,6 +539,8 @@ export default {
     this.idPassIn = this.productID;
     await this.getProductDetails();
     this.checkProductStatus();
+
+    // console.log('sub id', process.env.VUE_APP_SUBSCRIPTION_ID);
   }
 };
 </script>

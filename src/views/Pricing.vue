@@ -18,8 +18,8 @@
               </h1>
               <ul class="mt-3 mb-4 text-start">
                 <li class="mb-3">
-                  Unlimited access to details of Movies, TV shows and People
-                  related to the content
+                  Unlimited access to details of Movies and TV shows related to
+                  the content
                 </li>
                 <li class="mb-3">10 quotas for Watchlist</li>
                 <li>10 quotas for My Favorite</li>
@@ -33,36 +33,35 @@
             </div>
           </div>
         </div>
-        <!-- PURCHASE -->
+        <!-- Rent -->
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm h-100">
             <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">PURCHASE</h4>
+              <h4 class="my-0 fw-normal">Rent a disc</h4>
             </div>
             <div class="card-body d-flex flex-column">
               <h1 class="card-title pricing-card-title">
-                NT$450<small class="text-muted fw-light">/disc</small>
+                $0.99<small class="text-muted fw-light">/week</small>
               </h1>
               <ul class="mt-3 mb-4 text-start">
                 <li class="mb-3">
-                  Unlimited access to details of Movies, TV shows and People
-                  related to the content
+                  Unlimited access to details of Movies and TV shows related to
+                  the content
                 </li>
                 <li class="mb-3">50 quotas for Watchlist</li>
                 <li class="mb-3">50 quotas for My Favorite</li>
                 <li class="mb-3">
-                  Access to purchased Movies / TV shows with
+                  Access to the rented Movies and TV shows with
                   <strong>HD quality</strong>
                 </li>
-                <li>Access to rating the purchased Movies / TV shows</li>
+                <li>Access to rating the rented Movies and TV shows</li>
                 <li>Watch on 1 screen only</li>
               </ul>
-              <button
-                type="button"
+              <router-link
+                :to="{ name: 'AllProducts' }"
                 class="w-100 btn btn-outline-primary mt-auto mb-2"
+                >Pick a movie / tv show</router-link
               >
-                Pick a movie / tv show
-              </button>
             </div>
           </div>
         </div>
@@ -74,12 +73,12 @@
             </div>
             <div class="card-body d-flex flex-column">
               <h1 class="card-title pricing-card-title">
-                NT$330<small class="text-muted fw-light">/month</small>
+                $9.99<small class="text-muted fw-light">/month</small>
               </h1>
               <ul class="mt-3 mb-4 text-start">
                 <li class="mb-3">
-                  Unlimited access to details of Movies, TV shows and People
-                  related to the content
+                  Unlimited access to details of Movies and TV shows related to
+                  the content
                 </li>
                 <li class="mb-3">50 quotas for Watchlist</li>
                 <li class="mb-3">50 quotas for My Favorite</li>
@@ -91,7 +90,7 @@
                 <li class="mb-3">
                   Unlimited access to rating
                   <strong class="fw-bold">ALL</strong>
-                  Movies, TV shows and People
+                  Movies and TV shows
                 </li>
                 <li>
                   Watch on <strong class="fw-bold">2</strong> screens at the
@@ -118,7 +117,7 @@
             <tr>
               <th style="width: 34%"></th>
               <th style="width: 22%">Free</th>
-              <th style="width: 22%">PURCHASE</th>
+              <th style="width: 22%">Rent</th>
               <th style="width: 22%">SUBSCRIPTION</th>
             </tr>
           </thead>

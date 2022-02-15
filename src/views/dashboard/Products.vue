@@ -7,11 +7,15 @@
     <button type="button" class="btn btn-success" @click="getNowPlaying">
       快速新增 NowPlaying
     </button>
-    <button type="button" class="btn btn-danger" @click="getUpcoming">
+    <button type="button" class="btn btn-warning" @click="getUpcoming">
       快速新增 upComing
     </button>
-    <button type="button" class="btn btn-warning" @click="deleteAllProducts">
-      快速刪除全部產品
+    <button
+      type="button"
+      class="btn btn-danger disabled"
+      @click="deleteAllProducts"
+    >
+      刪除全部(subscription不可以刪)
     </button>
     <button type="button" class="btn btn-info" @click="getAllProducts">
       查看全部產品
@@ -337,8 +341,12 @@ export default {
 
       for (let i = 0; i < this.allProducts.length; i++) {
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.allProducts[i].id}`;
-        const response = await this.$http.delete(api);
-        console.log('deleteAllProducts', response.data);
+        if (this.allProducts[i].category.toUpperCase() === 'SUBSCRIPTION') {
+          continue;
+        } else {
+          const response = await this.$http.delete(api);
+          console.log('deleteAllProducts', response.data);
+        }
       }
 
       await this.getProducts();
